@@ -76,6 +76,9 @@ namespace BrickBreaker
                 xSpeed *= -1;
                 ySpeed *= -1;
 
+                xSpeed += 1;
+                ySpeed += 1;
+
                 if (pMovingLeft)
                 {
                     if (p.y == y)
@@ -104,22 +107,22 @@ namespace BrickBreaker
                 {
                     if (p.y == y)
                     {
-                        xSpeed = -Math.Abs(xSpeed);
+                        xSpeed = Math.Abs(xSpeed);
                         ySpeed *= -1;
                     }
                     else if (p.y + p.height == y)
                     {
-                        xSpeed = -Math.Abs(xSpeed);
+                        xSpeed = Math.Abs(xSpeed);
                         ySpeed *= -1;
                     }
                     if (p.x == x)
                     {
-                        xSpeed = -Math.Abs(xSpeed);
+                        xSpeed = Math.Abs(xSpeed);
                         ySpeed *= -1;
                     }
                     else if (p.x + p.width == x)
                     {
-                        xSpeed = -Math.Abs(xSpeed);
+                        xSpeed = Math.Abs(xSpeed);
                         ySpeed *= -1;
                     }
                 }
