@@ -39,7 +39,8 @@ namespace BrickBreaker
 
         public static Boolean leftArrowDown, rightArrowDown, escapeKeyDown, pause, gameStart, spaceDown;
 
-        string level = "02";
+        string level = "01";
+        int levelconter = 1; 
 
         // Game values
         int lives;
@@ -91,7 +92,7 @@ namespace BrickBreaker
         public void BreannaPowerUp()
         {
 
-            Rectangle ballRec = new Rectangle(ball.x, ball.y, ball.size, ball.size);
+            Rectangle ballRec = new Rectangle(ball.x, ball.y, ball.size +50, ball.size +50);
             Rectangle paddleRec = new Rectangle(paddle.x, paddle.y, paddle.width, paddle.height);
             Rectangle sizeRec = new Rectangle(size.x, size.y, size.size, size.size);
             Rectangle speedRec = new Rectangle(speed.x, speed.y, speed.size, speed.size);
@@ -476,14 +477,33 @@ namespace BrickBreaker
         }
         public void Win()
         {
-            Form form = this.FindForm();
+            if (levelconter == 1)
+            {
+                level = "02";
+                lives = 3; 
+                LoadLevel(); 
+                levelconter++;
+                gameTimer.Enabled = true; 
+            }
+            else if (levelconter == 2)
+            {
+                level = "03";
+                lives = 3;
+                LoadLevel();
+                levelconter++;
+            }
+            else if (levelconter == 3)
+            {
+                Form form = this.FindForm();
 
-            WinnerScreen ws = new WinnerScreen();
+                WinnerScreen ws = new WinnerScreen();
 
-            ws.Location = new Point((form.Width - ws.Width) / 2, (form.Height - ws.Height) / 2);
+                ws.Location = new Point((form.Width - ws.Width) / 2, (form.Height - ws.Height) / 2);
 
-            form.Controls.Add(ws);
-            form.Controls.Remove(this);
+                form.Controls.Add(ws);
+                form.Controls.Remove(this);
+            }
+          
         }
         public void OnEnd()
         {
