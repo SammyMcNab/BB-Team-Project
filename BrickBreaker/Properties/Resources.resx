@@ -1499,6 +1499,15 @@
   <data name="level03" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\level03.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
+  <data name="lives1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\lives1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="lives2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\lives2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="lives3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\lives3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+</data>
   <data name="longPaddle" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\longPaddle.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
