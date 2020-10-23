@@ -78,16 +78,26 @@ namespace BrickBreaker
         bool sheildSpawn = false;
         bool bigPaddle = false;
         int sheildHits = 0;
+        //bool for power up visablity
+        bool sheildBall = true;
+        bool sizeBall = true;
+        bool speedBall = true;
+        int speedHit = 0;
 
         int ballX, ballY;
         int ballSize = 20;
+
+        
 
         #endregion
         public GameScreen()
         {
             InitializeComponent();
             OnStart();
+            lifeLabel.Parent = borderBox;
+            scoreLabel.Parent = borderBox;
         }
+
 
         public void BreannaPowerUp()
         {
@@ -99,29 +109,44 @@ namespace BrickBreaker
             Rectangle bottomRec = new Rectangle(bottom.x, bottom.y, bottom.size, bottom.size);
             Rectangle sheild = new Rectangle(0, this.Height - 30, this.Width, 20);
 
+
+            if (sizeRec.IntersectsWith(paddleRec) && sizeBall == true)
+
             //changes size of paddle
             if (sizeRec.IntersectsWith(paddleRec))
+
             {
                 bigPaddle = true;
 
                 if (paddleWidth == 80)
                 {
                     paddle.width = 160;
+                    sizeBall = false;
                 }
             }
 
             if (speedRec.IntersectsWith(paddleRec))
             {
-                if (ball.xSpeed >= 2 && ball.ySpeed >= 2)
+                if (ball.xSpeed >= 2 && ball.ySpeed >= 2 && speedBall == true)
                 {
                     ball.xSpeed--;
                     ball.ySpeed--;
+                    speedHit++;
+                    if (speedHit == 4)
+                    {
+                        speedBall = false;
+                    }
                 }
             }
 
             if (bottomRec.IntersectsWith(paddleRec))
             {
-                sheildSpawn = true;
+                if (sheildBall)
+                {
+                    sheildSpawn = true;
+                    sheildBall = false;
+                }
+                
             }
 
             foreach (PowerUp power in powerUps)
@@ -364,22 +389,40 @@ namespace BrickBreaker
 
 
             // Check for collision with top and side walls
-            ball.WallCollision(this);
+            ball.WallCollision(this, borderBox);
 
             // Check for ball hitting bottom of screen
             if (ball.BottomCollision(this))
             {
                 lives--;
+                if (lives == 3)
+                {
+                    livesPicture.Image = Properties.Resources.lives3;
+                }
+                else if (lives == 2)
+                {
+                    livesPicture.Image = Properties.Resources.lives2;
+                }
+                else if (lives == 1)
+                {
+                    livesPicture.Image = Properties.Resources.lives1;
+                }
+
+                sheildHits = 0;
+                sheildBall = true;
+
                 if (paddle.width != 80)
                 {
                     bigPaddle = false;
                     paddle.width = 80;
+                    sizeBall = true;
                 }
 
                 if (ball.xSpeed != 6 && ball.ySpeed != 6)
                 {
                     ball.xSpeed = 6;
                     ball.ySpeed = 6;
+                    sizeBall = true;
                 }
 
                 // Moves the ball back to origin
@@ -477,6 +520,10 @@ namespace BrickBreaker
         }
         public void Win()
         {
+
+            livesPicture.Image = Properties.Resources.lives3;
+            Form form = this.FindForm();
+
             if (levelconter == 1)
             {
                 level = "02";
@@ -495,6 +542,7 @@ namespace BrickBreaker
             else if (levelconter == 3)
             {
                 Form form = this.FindForm();
+
 
                 WinnerScreen ws = new WinnerScreen();
 
@@ -527,7 +575,23 @@ namespace BrickBreaker
             //{
             //    e.Graphics.FillRectangle(powerUpBrush, power.x, power.y, power.size, power.size);
             //}
+            if (sheildBall)
+            {
+                e.Graphics.DrawImage(Properties.Resources.shieldPowerBall, bottom.x, bottom.y, bottom.size, bottom.size);
+            }
 
+
+            if (speedBall)
+            {
+                e.Graphics.DrawImage(Properties.Resources.ballPowerBall, speed.x, speed.y, speed.size, speed.size);
+            }
+
+            if (sizeBall)
+            {
+                e.Graphics.DrawImage(Properties.Resources.paddlePowerBall, size.x, size.y, size.size, size.size);
+            }
+           
+            
             //Power ups
             e.Graphics.DrawImage(Properties.Resources.paddlePowerBall, size.x, size.y, size.size, size.size);
             e.Graphics.DrawImage(Properties.Resources.ballPowerBall, speed.x, speed.y, speed.size, speed.size);
