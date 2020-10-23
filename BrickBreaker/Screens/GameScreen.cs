@@ -73,6 +73,11 @@ namespace BrickBreaker
         //bool for sheild spawn
         bool sheildSpawn = false;
         int sheildHits = 0;
+        //bool for power up visablity
+        bool sheildBall = true;
+        bool sizeBall = true;
+        bool speedBall = true;
+        int speedHit = 0;
 
         int ballX, ballY;
         int ballSize = 20;
@@ -99,6 +104,7 @@ namespace BrickBreaker
                 if (paddleWidth == 80)
                 {
                     paddle.width = 160;
+                    sizeBall = false;
                 }
             }
 
@@ -108,12 +114,18 @@ namespace BrickBreaker
                 {
                     ball.xSpeed--;
                     ball.ySpeed--;
+                    speedHit++;
+                    if (speedHit == 4)
+                    {
+                        speedBall = false;
+                    }
                 }
             }
 
             if (bottomRec.IntersectsWith(paddleRec))
             {
                 sheildSpawn = true;
+                sheildBall = false;
             }
 
             foreach (PowerUp power in powerUps)
@@ -346,15 +358,20 @@ namespace BrickBreaker
             if (ball.BottomCollision(this))
             {
                 lives--;
+                sheildHits = 0;
+                sheildBall = true;
                 if (paddle.width != 80)
                 {
                     paddle.width = 80;
+                    sizeBall = true;
                 }
 
                 if (ball.xSpeed != 6 && ball.ySpeed != 6)
                 {
                     ball.xSpeed = 6;
                     ball.ySpeed = 6;
+                    sheildHits = 0;
+                    sheildBall = true;
                 }
 
                 // Moves the ball back to origin
@@ -479,10 +496,23 @@ namespace BrickBreaker
             //{
             //    e.Graphics.FillRectangle(powerUpBrush, power.x, power.y, power.size, power.size);
             //}
+            if (sheildBall)
+            {
+                e.Graphics.DrawImage(Properties.Resources.shieldPowerBall, bottom.x, bottom.y, bottom.size, bottom.size);
+            }
 
-            e.Graphics.DrawImage(Properties.Resources.paddlePowerBall, size.x, size.y, size.size, size.size);
-            e.Graphics.DrawImage(Properties.Resources.ballPowerBall, speed.x, speed.y, speed.size, speed.size);
-            e.Graphics.DrawImage(Properties.Resources.shieldPowerBall, bottom.x, bottom.y, bottom.size, bottom.size);
+            if (speedBall)
+            {
+                e.Graphics.DrawImage(Properties.Resources.ballPowerBall, speed.x, speed.y, speed.size, speed.size);
+            }
+
+            if (sizeBall)
+            {
+                e.Graphics.DrawImage(Properties.Resources.paddlePowerBall, size.x, size.y, size.size, size.size);
+            }
+           
+            
+            
             // Draws paddle
             paddleBrush.Color = paddle.colour;
             e.Graphics.FillRectangle(paddleBrush, paddle.x, paddle.y, paddle.width, paddle.height);
