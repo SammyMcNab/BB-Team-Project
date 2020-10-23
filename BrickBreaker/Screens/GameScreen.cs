@@ -389,8 +389,7 @@ namespace BrickBreaker
                 {
                     ball.xSpeed = 6;
                     ball.ySpeed = 6;
-                    sheildHits = 0;
-                    sheildBall = true;
+                    sizeBall = true;
                 }
 
                 // Moves the ball back to origin
