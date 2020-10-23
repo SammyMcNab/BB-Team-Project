@@ -48,6 +48,9 @@ namespace BrickBreaker
         int ySpeed = 6;
         int score;
 
+        int timer = 0;
+        int counter = 0;
+
         // Paddle and Ball objects
         Paddle paddle;
         Ball ball;
@@ -59,7 +62,7 @@ namespace BrickBreaker
         List<PowerUp> powerUps = new List<PowerUp>();
 
         //list of high scores
-        List<HighScore> highScore = new List<HighScore>(); 
+        List<HighScore> highScore = new List<HighScore>();
 
 
         // Brushes
@@ -94,7 +97,7 @@ namespace BrickBreaker
             Rectangle speedRec = new Rectangle(speed.x, speed.y, speed.size, speed.size);
             Rectangle bottomRec = new Rectangle(bottom.x, bottom.y, bottom.size, bottom.size);
             Rectangle sheild = new Rectangle(0, this.Height - 30, this.Width, 20);
-            
+
             //changes size of paddle
             if (sizeRec.IntersectsWith(paddleRec))
             {
@@ -262,7 +265,7 @@ namespace BrickBreaker
 
             //clears blocks
             blocks.Clear();
-            
+
             //loads levels
             LoadLevel();
 
@@ -318,25 +321,37 @@ namespace BrickBreaker
         {
             scoreLabel.Text = "SCORE: " + score;
         }
+        public void SammyAndBenTimer()
+        {
+            timer++;
+            if (timer == 20)
+            {
+                counter++;
+                timeLabel.Text = "" + counter;
+            }
+        }
         private void gameTimer_Tick(object sender, EventArgs e)
         {
             BreannaPowerUp();
+
             SammyAndBenScore();
+
+            SammyAndBenTimer();
             // Move the paddle
             if (leftArrowDown && paddle.x > 0)
             {
                 paddle.Move("left");
 
-                if(ballStart == false)
-                ball.MoveWithPaddle("left", paddle);
+                if (ballStart == false)
+                    ball.MoveWithPaddle("left", paddle);
 
             }
             if (rightArrowDown && paddle.x < (this.Width - paddle.width))
             {
                 paddle.Move("right");
 
-                if(ballStart == false)
-                ball.MoveWithPaddle("right", paddle);
+                if (ballStart == false)
+                    ball.MoveWithPaddle("right", paddle);
 
             }
 
@@ -391,7 +406,7 @@ namespace BrickBreaker
                 {
                     b.hp--;
                     score += 100;
-                    if(b.hp == 0)
+                    if (b.hp == 0)
                     {
                         blocks.Remove(b);
                     }
@@ -416,7 +431,7 @@ namespace BrickBreaker
         public void LoadLevel()
         {
             //XmlReader reader = XmlReader.Create("Resources/level01.xml");
-            XmlTextReader reader = new XmlTextReader("Resources/level" + level +".xml");
+            XmlTextReader reader = new XmlTextReader("Resources/level" + level + ".xml");
             while (reader.Read())
             {
                 if (reader.NodeType == XmlNodeType.Text)
@@ -507,7 +522,7 @@ namespace BrickBreaker
             {
                 e.Graphics.DrawImage(Properties.Resources.Paddle, paddle.x, paddle.y, paddle.width, paddle.height);
             }
-            
+
             // Draws blocks
             foreach (Block b in blocks)
             {
@@ -527,4 +542,4 @@ namespace BrickBreaker
         }
     }
 }
-     
+
