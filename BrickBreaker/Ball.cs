@@ -100,7 +100,7 @@ namespace BrickBreaker
             }
         }
 
-        public void WallCollision(UserControl UC)
+        public void WallCollision(UserControl UC, PictureBox p)
         {
             // Collision with left wall
             if (x <= 0)
@@ -113,7 +113,7 @@ namespace BrickBreaker
                 xSpeed *= -1;
             }
             // Collision with top wall
-            if (y <= 2)
+            if (y <= 0 + p.Height)
             {
                 ySpeed *= -1;
             }

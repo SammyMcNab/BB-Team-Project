@@ -82,12 +82,17 @@ namespace BrickBreaker
         int ballX, ballY;
         int ballSize = 20;
 
+        
+
         #endregion
         public GameScreen()
         {
             InitializeComponent();
             OnStart();
+            lifeLabel.Parent = borderBox;
+            scoreLabel.Parent = borderBox;
         }
+
 
         public void BreannaPowerUp()
         {
@@ -99,7 +104,7 @@ namespace BrickBreaker
             Rectangle bottomRec = new Rectangle(bottom.x, bottom.y, bottom.size, bottom.size);
             Rectangle sheild = new Rectangle(0, this.Height - 30, this.Width, 20);
 
-            if (sizeRec.IntersectsWith(paddleRec))
+            if (sizeRec.IntersectsWith(paddleRec) && sizeBall == true)
             {
                 if (paddleWidth == 80)
                 {
@@ -110,7 +115,7 @@ namespace BrickBreaker
 
             if (speedRec.IntersectsWith(paddleRec))
             {
-                if (ball.xSpeed >= 2 && ball.ySpeed >= 2)
+                if (ball.xSpeed >= 2 && ball.ySpeed >= 2 && speedBall == true)
                 {
                     ball.xSpeed--;
                     ball.ySpeed--;
@@ -124,8 +129,12 @@ namespace BrickBreaker
 
             if (bottomRec.IntersectsWith(paddleRec))
             {
-                sheildSpawn = true;
-                sheildBall = false;
+                if (sheildBall)
+                {
+                    sheildSpawn = true;
+                    sheildBall = false;
+                }
+                
             }
 
             foreach (PowerUp power in powerUps)
@@ -352,7 +361,7 @@ namespace BrickBreaker
 
 
             // Check for collision with top and side walls
-            ball.WallCollision(this);
+            ball.WallCollision(this, borderBox);
 
             // Check for ball hitting bottom of screen
             if (ball.BottomCollision(this))
@@ -360,6 +369,7 @@ namespace BrickBreaker
                 lives--;
                 sheildHits = 0;
                 sheildBall = true;
+
                 if (paddle.width != 80)
                 {
                     paddle.width = 80;
