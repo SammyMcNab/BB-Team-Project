@@ -314,10 +314,14 @@ namespace BrickBreaker
                     break;
             }
         }
+        public void SammyAndBenScore()
+        {
+            scoreLabel.Text = "SCORE: " + score;
+        }
         private void gameTimer_Tick(object sender, EventArgs e)
         {
             BreannaPowerUp();
-
+            SammyAndBenScore();
             // Move the paddle
             if (leftArrowDown && paddle.x > 0)
             {
