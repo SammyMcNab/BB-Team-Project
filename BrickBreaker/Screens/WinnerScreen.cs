@@ -43,6 +43,8 @@ namespace BrickBreaker
 
             #region displaying score/time
             //TODO - get score and time variables from GameScreen
+            scoreLabel.Text = GameScreen.score + "";
+            timeLabel.Text = GameScreen.counter + "";
             //TODO - display they in the correct label with proper formatting
 
             #endregion
@@ -76,6 +78,21 @@ namespace BrickBreaker
         private void exitButton_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void playButton_Enter(object sender, EventArgs e)
+        {
+            arrow.Location = new Point(121, 394);
+        }
+
+        private void highscoresButton_Enter(object sender, EventArgs e)
+        {
+            arrow.Location = new Point(353, 395);
+        }
+
+        private void exitButton_Enter(object sender, EventArgs e)
+        {
+            arrow.Location = new Point(583, 395);
         }
     }
 }

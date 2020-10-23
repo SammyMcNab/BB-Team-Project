@@ -374,6 +374,10 @@ namespace BrickBreaker.Properties {
         internal static System.Drawing.Bitmap lives3 {
             get {
                 object obj = ResourceManager.GetObject("lives3", resourceCulture);
+
+        internal static System.Drawing.Bitmap longPaddle {
+            get {
+                object obj = ResourceManager.GetObject("longPaddle", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

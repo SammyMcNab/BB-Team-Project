@@ -43,5 +43,16 @@ namespace BrickBreaker
             buttonResult = DialogResult.Abort;
             pauseForm.Close();
         }
+
+        private void exitButton_Enter(object sender, EventArgs e)
+        {
+            arrow.Location = new Point (68, 205);
+
+        }
+
+        private void continueButton_Enter(object sender, EventArgs e)
+        {
+            arrow.Location = new Point(439,205);
+        }
     }
 }

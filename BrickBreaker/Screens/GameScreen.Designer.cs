@@ -33,15 +33,19 @@
             this.borderBox = new System.Windows.Forms.PictureBox();
             this.scoreLabel = new System.Windows.Forms.Label();
             this.lifeLabel = new System.Windows.Forms.Label();
+
             this.livesPicture = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.borderBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.livesPicture)).BeginInit();
+
+            this.timeLabel = new System.Windows.Forms.Label();
+
             this.SuspendLayout();
             // 
             // gameTimer
             // 
             this.gameTimer.Enabled = true;
-            this.gameTimer.Interval = 1;
+            this.gameTimer.Interval = 50;
             this.gameTimer.Tick += new System.EventHandler(this.gameTimer_Tick);
             // 
             // borderBox
@@ -60,10 +64,14 @@
             this.scoreLabel.BackColor = System.Drawing.Color.Transparent;
             this.scoreLabel.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.scoreLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(66)))), ((int)(((byte)(33)))));
-            this.scoreLabel.Location = new System.Drawing.Point(647, 0);
+            this.scoreLabel.Location = new System.Drawing.Point(661, 0);
             this.scoreLabel.Name = "scoreLabel";
+
             this.scoreLabel.Size = new System.Drawing.Size(390, 51);
             this.scoreLabel.TabIndex = 3;
+
+            this.scoreLabel.Size = new System.Drawing.Size(373, 51);
+
             this.scoreLabel.Text = "SCORE:";
             // 
             // lifeLabel
@@ -77,6 +85,7 @@
             this.lifeLabel.TabIndex = 4;
             this.lifeLabel.Text = "LIVES:";
             // 
+
             // livesPicture
             // 
             this.livesPicture.BackColor = System.Drawing.Color.Transparent;
@@ -87,13 +96,27 @@
             this.livesPicture.Size = new System.Drawing.Size(101, 50);
             this.livesPicture.TabIndex = 5;
             this.livesPicture.TabStop = false;
+
+            // timeLabel
+            // 
+            this.timeLabel.Font = new System.Drawing.Font("Tahoma", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.timeLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(66)))), ((int)(((byte)(33)))));
+            this.timeLabel.Location = new System.Drawing.Point(375, 0);
+            this.timeLabel.Name = "timeLabel";
+            this.timeLabel.Size = new System.Drawing.Size(163, 72);
+            this.timeLabel.TabIndex = 2;
+
             // 
             // GameScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+
             this.Controls.Add(this.livesPicture);
+
+            this.Controls.Add(this.timeLabel);
+
             this.Controls.Add(this.lifeLabel);
             this.Controls.Add(this.scoreLabel);
             this.Controls.Add(this.borderBox);
@@ -116,6 +139,10 @@
         private System.Windows.Forms.PictureBox borderBox;
         private System.Windows.Forms.Label scoreLabel;
         private System.Windows.Forms.Label lifeLabel;
+
         private System.Windows.Forms.PictureBox livesPicture;
+
+        private System.Windows.Forms.Label timeLabel;
+
     }
 }

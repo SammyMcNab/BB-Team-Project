@@ -40,13 +40,17 @@ namespace BrickBreaker
         public static Boolean leftArrowDown, rightArrowDown, escapeKeyDown, pause, gameStart, spaceDown;
 
         string level = "01";
+        int levelconter = 1; 
 
         // Game values
         int lives;
 
         int xSpeed = 8;
         int ySpeed = 6;
-        int score;
+        public static int score;
+
+        int timer = 0;
+        public static int counter = 0;
 
         // Paddle and Ball objects
         Paddle paddle;
@@ -59,7 +63,7 @@ namespace BrickBreaker
         List<PowerUp> powerUps = new List<PowerUp>();
 
         //list of high scores
-        List<HighScore> highScore = new List<HighScore>(); 
+        List<HighScore> highScore = new List<HighScore>();
 
 
         // Brushes
@@ -72,6 +76,7 @@ namespace BrickBreaker
 
         //bool for sheild spawn
         bool sheildSpawn = false;
+        bool bigPaddle = false;
         int sheildHits = 0;
         //bool for power up visablity
         bool sheildBall = true;
@@ -97,15 +102,22 @@ namespace BrickBreaker
         public void BreannaPowerUp()
         {
 
-            Rectangle ballRec = new Rectangle(ball.x, ball.y, ball.size, ball.size);
+            Rectangle ballRec = new Rectangle(ball.x, ball.y, ball.size +50, ball.size +50);
             Rectangle paddleRec = new Rectangle(paddle.x, paddle.y, paddle.width, paddle.height);
             Rectangle sizeRec = new Rectangle(size.x, size.y, size.size, size.size);
             Rectangle speedRec = new Rectangle(speed.x, speed.y, speed.size, speed.size);
             Rectangle bottomRec = new Rectangle(bottom.x, bottom.y, bottom.size, bottom.size);
             Rectangle sheild = new Rectangle(0, this.Height - 30, this.Width, 20);
 
+
             if (sizeRec.IntersectsWith(paddleRec) && sizeBall == true)
+
+            //changes size of paddle
+            if (sizeRec.IntersectsWith(paddleRec))
+
             {
+                bigPaddle = true;
+
                 if (paddleWidth == 80)
                 {
                     paddle.width = 160;
@@ -279,7 +291,7 @@ namespace BrickBreaker
 
             //clears blocks
             blocks.Clear();
-            
+
             //loads levels
             LoadLevel();
 
@@ -331,25 +343,41 @@ namespace BrickBreaker
                     break;
             }
         }
+        public void SammyAndBenScore()
+        {
+            scoreLabel.Text = "SCORE: " + score;
+        }
+        public void SammyAndBenTimer()
+        {
+            timer++;
+            if (timer == 20)
+            {
+                counter++;
+                timeLabel.Text = "" + counter;
+            }
+        }
         private void gameTimer_Tick(object sender, EventArgs e)
         {
             BreannaPowerUp();
 
+            SammyAndBenScore();
+
+            SammyAndBenTimer();
             // Move the paddle
             if (leftArrowDown && paddle.x > 0)
             {
                 paddle.Move("left");
 
-                if(ballStart == false)
-                ball.MoveWithPaddle("left", paddle);
+                if (ballStart == false)
+                    ball.MoveWithPaddle("left", paddle);
 
             }
             if (rightArrowDown && paddle.x < (this.Width - paddle.width))
             {
                 paddle.Move("right");
 
-                if(ballStart == false)
-                ball.MoveWithPaddle("right", paddle);
+                if (ballStart == false)
+                    ball.MoveWithPaddle("right", paddle);
 
             }
 
@@ -385,6 +413,7 @@ namespace BrickBreaker
 
                 if (paddle.width != 80)
                 {
+                    bigPaddle = false;
                     paddle.width = 80;
                     sizeBall = true;
                 }
@@ -417,11 +446,14 @@ namespace BrickBreaker
             // Check if ball has collided with any blocks
             foreach (Block b in blocks)
             {
-                if (ball.BlockCollision(b))
+                if (ball.BlockCollision(b, blocks))
                 {
-                    blocks.Remove(b);
-                    score++;
-
+                    b.hp--;
+                    score += 100;
+                    if (b.hp == 0)
+                    {
+                        blocks.Remove(b);
+                    }
                     if (blocks.Count == 0)
                     {
                         gameTimer.Enabled = false;
@@ -443,7 +475,7 @@ namespace BrickBreaker
         public void LoadLevel()
         {
             //XmlReader reader = XmlReader.Create("Resources/level01.xml");
-            XmlTextReader reader = new XmlTextReader("Resources/level" + level +".xml");
+            XmlTextReader reader = new XmlTextReader("Resources/level" + level + ".xml");
             while (reader.Read())
             {
                 if (reader.NodeType == XmlNodeType.Text)
@@ -488,15 +520,38 @@ namespace BrickBreaker
         }
         public void Win()
         {
+
             livesPicture.Image = Properties.Resources.lives3;
             Form form = this.FindForm();
 
-            WinnerScreen ws = new WinnerScreen();
+            if (levelconter == 1)
+            {
+                level = "02";
+                lives = 3; 
+                LoadLevel(); 
+                levelconter++;
+                gameTimer.Enabled = true; 
+            }
+            else if (levelconter == 2)
+            {
+                level = "03";
+                lives = 3;
+                LoadLevel();
+                levelconter++;
+            }
+            else if (levelconter == 3)
+            {
+                Form form = this.FindForm();
 
-            ws.Location = new Point((form.Width - ws.Width) / 2, (form.Height - ws.Height) / 2);
 
-            form.Controls.Add(ws);
-            form.Controls.Remove(this);
+                WinnerScreen ws = new WinnerScreen();
+
+                ws.Location = new Point((form.Width - ws.Width) / 2, (form.Height - ws.Height) / 2);
+
+                form.Controls.Add(ws);
+                form.Controls.Remove(this);
+            }
+          
         }
         public void OnEnd()
         {
@@ -513,7 +568,8 @@ namespace BrickBreaker
 
         public void GameScreen_Paint(object sender, PaintEventArgs e)
         {
-            e.Graphics.FillRectangle(ballBrush, ball.x, ball.y, ball.size, ball.size);
+            //ball
+            e.Graphics.DrawImage(Properties.Resources.ball, ball.x, ball.y, ball.size, ball.size);
 
             //foreach (PowerUp power in powerUps)
             //{
@@ -523,6 +579,7 @@ namespace BrickBreaker
             {
                 e.Graphics.DrawImage(Properties.Resources.shieldPowerBall, bottom.x, bottom.y, bottom.size, bottom.size);
             }
+
 
             if (speedBall)
             {
@@ -535,10 +592,20 @@ namespace BrickBreaker
             }
            
             
-            
+            //Power ups
+            e.Graphics.DrawImage(Properties.Resources.paddlePowerBall, size.x, size.y, size.size, size.size);
+            e.Graphics.DrawImage(Properties.Resources.ballPowerBall, speed.x, speed.y, speed.size, speed.size);
+            e.Graphics.DrawImage(Properties.Resources.shieldPowerBall, bottom.x, bottom.y, bottom.size, bottom.size);
+
             // Draws paddle
-            paddleBrush.Color = paddle.colour;
-            e.Graphics.FillRectangle(paddleBrush, paddle.x, paddle.y, paddle.width, paddle.height);
+            if (bigPaddle == true)
+            {
+                e.Graphics.DrawImage(Properties.Resources.longPaddle, paddle.x, paddle.y, paddle.width, paddle.height);
+            }
+            else
+            {
+                e.Graphics.DrawImage(Properties.Resources.Paddle, paddle.x, paddle.y, paddle.width, paddle.height);
+            }
 
             // Draws blocks
             foreach (Block b in blocks)
@@ -551,12 +618,12 @@ namespace BrickBreaker
                     e.Graphics.DrawImage(Properties.Resources.redBrick, b.x, b.y, b.width, b.height);
             }
 
+            //shield
             if (sheildSpawn == true)
             {
-                Rectangle shield = new Rectangle(0, this.Height - 30, this.Width, 20);
-                e.Graphics.FillRectangle(sheildBrush, shield);
+                e.Graphics.DrawImage(Properties.Resources.shieldPowerUp, 0, this.Height - 30, this.Width, 20);
             }
         }
     }
 }
-     
+
