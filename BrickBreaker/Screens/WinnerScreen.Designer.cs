@@ -93,6 +93,7 @@
             this.exitButton.Size = new System.Drawing.Size(198, 79);
             this.exitButton.TabIndex = 3;
             this.exitButton.Text = "EXIT";
+            this.exitButton.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.exitButton.UseVisualStyleBackColor = false;
             this.exitButton.Click += new System.EventHandler(this.exitButton_Click);
             this.exitButton.Enter += new System.EventHandler(this.exitButton_Enter);
@@ -124,25 +125,25 @@
             // 
             this.scoreLabel.Font = new System.Drawing.Font("Tahoma", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.scoreLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(63)))), ((int)(((byte)(33)))));
-            this.scoreLabel.Location = new System.Drawing.Point(57, 308);
+            this.scoreLabel.Location = new System.Drawing.Point(15, 309);
             this.scoreLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.scoreLabel.Name = "scoreLabel";
-            this.scoreLabel.Size = new System.Drawing.Size(223, 83);
+            this.scoreLabel.Size = new System.Drawing.Size(388, 83);
             this.scoreLabel.TabIndex = 8;
             this.scoreLabel.Text = "Score";
-            this.scoreLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.scoreLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // timeLabel
             // 
             this.timeLabel.Font = new System.Drawing.Font("Tahoma", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.timeLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(63)))), ((int)(((byte)(33)))));
-            this.timeLabel.Location = new System.Drawing.Point(447, 306);
+            this.timeLabel.Location = new System.Drawing.Point(407, 309);
             this.timeLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.timeLabel.Name = "timeLabel";
-            this.timeLabel.Size = new System.Drawing.Size(206, 86);
+            this.timeLabel.Size = new System.Drawing.Size(323, 86);
             this.timeLabel.TabIndex = 9;
             this.timeLabel.Text = "Time";
-            this.timeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.timeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // arrow
             // 

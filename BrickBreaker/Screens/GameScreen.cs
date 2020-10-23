@@ -46,10 +46,10 @@ namespace BrickBreaker
 
         int xSpeed = 8;
         int ySpeed = 6;
-        int score;
+        public static int score;
 
         int timer = 0;
-        int counter = 0;
+        public static int counter = 0;
 
         // Paddle and Ball objects
         Paddle paddle;

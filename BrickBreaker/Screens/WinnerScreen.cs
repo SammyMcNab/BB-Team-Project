@@ -43,6 +43,8 @@ namespace BrickBreaker
 
             #region displaying score/time
             //TODO - get score and time variables from GameScreen
+            scoreLabel.Text = GameScreen.score + "";
+            timeLabel.Text = GameScreen.counter + "";
             //TODO - display they in the correct label with proper formatting
 
             #endregion
