@@ -33,7 +33,9 @@
             this.borderBox = new System.Windows.Forms.PictureBox();
             this.scoreLabel = new System.Windows.Forms.Label();
             this.lifeLabel = new System.Windows.Forms.Label();
+            this.livesPicture = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.borderBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.livesPicture)).BeginInit();
             this.SuspendLayout();
             // 
             // gameTimer
@@ -75,11 +77,23 @@
             this.lifeLabel.TabIndex = 4;
             this.lifeLabel.Text = "LIVES:";
             // 
+            // livesPicture
+            // 
+            this.livesPicture.BackColor = System.Drawing.Color.Transparent;
+            this.livesPicture.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.livesPicture.Image = global::BrickBreaker.Properties.Resources.lives3;
+            this.livesPicture.Location = new System.Drawing.Point(163, 0);
+            this.livesPicture.Name = "livesPicture";
+            this.livesPicture.Size = new System.Drawing.Size(101, 50);
+            this.livesPicture.TabIndex = 5;
+            this.livesPicture.TabStop = false;
+            // 
             // GameScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.Controls.Add(this.livesPicture);
             this.Controls.Add(this.lifeLabel);
             this.Controls.Add(this.scoreLabel);
             this.Controls.Add(this.borderBox);
@@ -91,6 +105,7 @@
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.GameScreen_KeyUp);
             this.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.GameScreen_PreviewKeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.borderBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.livesPicture)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -101,5 +116,6 @@
         private System.Windows.Forms.PictureBox borderBox;
         private System.Windows.Forms.Label scoreLabel;
         private System.Windows.Forms.Label lifeLabel;
+        private System.Windows.Forms.PictureBox livesPicture;
     }
 }

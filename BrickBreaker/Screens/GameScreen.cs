@@ -367,6 +367,15 @@ namespace BrickBreaker
             if (ball.BottomCollision(this))
             {
                 lives--;
+                if (lives == 2)
+                {
+                    livesPicture.Image = Properties.Resources.lives2;
+                }
+                else if (lives == 1)
+                {
+                    livesPicture.Image = Properties.Resources.lives1;
+                }
+
                 sheildHits = 0;
                 sheildBall = true;
 
