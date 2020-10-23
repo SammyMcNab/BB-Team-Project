@@ -5,7 +5,9 @@ using System.Windows.Forms;
 
 namespace BrickBreaker
 { //designed by Jayden Roddick
-    
+    /// <summary>
+    /// 
+    /// </summary>
     public class Ball
     {
         public int x, y, xSpeed, ySpeed, size;
