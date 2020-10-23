@@ -488,6 +488,7 @@ namespace BrickBreaker
         }
         public void Win()
         {
+            livesPicture.Image = Properties.Resources.lives3;
             Form form = this.FindForm();
 
             WinnerScreen ws = new WinnerScreen();
